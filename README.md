@@ -9,9 +9,7 @@
 |로그인 화면|회원가입 화면|메인 화면|
 |:-------:|:----:|:----:|
 |<image src = https://github.com/user-attachments/assets/4bde3a76-04c2-4f1c-ae06-161b5cd51dbe width = "300" height = "200">|<image src = https://github.com/user-attachments/assets/03414da6-8224-4d3a-934e-7d6ed1a5b12b width = "300" height = "200">|<image src = https://github.com/user-attachments/assets/5b0d7622-af61-4701-a624-22b693cca849 width = "400" height = "200">
-
 |입금|출금|송금|
-|:-------:|:----:|:----:|
 |<image src = https://github.com/user-attachments/assets/e24dd9a7-7d90-43d4-aec0-8cc33e1d2f65 width = "300" height = "200">|<image src = https://github.com/user-attachments/assets/7e08c442-de5e-450b-b80f-eb130bec3fb1 width = "300" height = "200">|<image src = https://github.com/user-attachments/assets/fbdb8498-7716-4f8d-8246-95fb5c5087aa width = "300" height = "200">|
 
 ---
