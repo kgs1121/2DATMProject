@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SaveAllUserData()
+    public void SaveAllUserData() // 유저 전체 데이터 저장
     {
         string path = Application.persistentDataPath + "/UserData.txt";
         UserDataList userDataList = new UserDataList(userS);
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(path);
     }
 
-    public void SaveUserData(UserData updateUser)
+    public void SaveUserData(UserData updateUser) // 접속한 유저 데이터 저장
     {
         // 기존 데이터 로드
         string path = Application.persistentDataPath + "/UserData.txt";

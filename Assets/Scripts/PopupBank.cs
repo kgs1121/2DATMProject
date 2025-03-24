@@ -54,25 +54,25 @@ public class PopupBank : MonoBehaviour
         Refresh(GameManager.Instance.currentUser);
     }
 
-    public void OnClickDeposit()
+    public void OnClickDeposit() // 입금 버튼
     {
         atmUI.SetActive(false);
         depositUI.SetActive(true);
     }
 
-    public void OnClickWithdrawal()
+    public void OnClickWithdrawal() // 출금 버튼
     {
         atmUI.SetActive(false);
         withdrawalUI.SetActive(true);
     }
 
-    public void OnClickSend()
+    public void OnClickSend() // 송금 버튼
     {
         atmUI.SetActive(false);
         sendUI.SetActive(true);
     }
 
-    public void OnClickCancle()
+    public void OnClickCancle() // 뒤로가기 버튼
     {
         atmUI.SetActive(true);
         depositUI.SetActive(false);
@@ -82,7 +82,7 @@ public class PopupBank : MonoBehaviour
         customWithdrawalInput.text = "";
     }
 
-    public void OnClickFailCancle()
+    public void OnClickFailCancle() // 오류 확인 버튼
     {
         customDepositInput.text = "";
         customWithdrawalInput.text = "";
@@ -93,14 +93,14 @@ public class PopupBank : MonoBehaviour
     }
 
 
-    public void Refresh(UserData updateUser)
+    public void Refresh(UserData updateUser)  // UI 리프레쉬
     {
         name.text = GameManager.Instance.currentUser.UserName;
         cash.text = string.Format("{0:N0}", GameManager.Instance.currentUser.UserCash);
         balance.text = string.Format("{0:N0}", GameManager.Instance.currentUser.UserBalance);
     }
 
-    public void DoDeposit(int amount)
+    public void DoDeposit(int amount) // 입금
     {
         if (int.TryParse(customDepositInput.text, out int amount2))
         {
@@ -120,7 +120,7 @@ public class PopupBank : MonoBehaviour
         }
     }
 
-    public void DoWithdrawal(int amount)
+    public void DoWithdrawal(int amount) // 출금
     {
         if(int.TryParse(customWithdrawalInput.text, out int amount2))
         {
@@ -139,7 +139,7 @@ public class PopupBank : MonoBehaviour
         }
     }
 
-    public void DoSendMoney(int amount)
+    public void DoSendMoney(int amount) // 송금
     {
         bool isUser = false;
 
@@ -166,7 +166,7 @@ public class PopupBank : MonoBehaviour
 
         foreach(var user in GameManager.Instance.userS)
         {
-            if(user.UserId == sendTarget.text) isUser = true;
+            if(user.UserName == sendTarget.text) isUser = true;
 
             if (isUser && GameManager.Instance.currentUser.UserBalance >= amount)
             {
