@@ -6,12 +6,14 @@ using System.Text;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
-    public UserData userData;
+    public List<UserData> userS = new List<UserData>();
+    public UserData currentUser;
 
     public static GameManager Instance
     {
@@ -39,13 +41,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SaveUserData()
+    public void SaveAllUserData()
     {
-        if (userData == null) return;
+        string path = Application.persistentDataPath + "/UserData.txt";
+        UserDataList userDataList = new UserDataList(userS);
 
-        string saveData = JsonUtility.ToJson(userData);
-        File.WriteAllText(Application.persistentDataPath + "/UserData.txt", saveData);
-        Debug.Log(saveData);
+        string saveData = JsonUtility.ToJson(userDataList, true);
+        File.WriteAllText(path, saveData);
+        Debug.Log("신규 유저 데이터 저장 완료!");
+        Debug.Log(path);
+    }
+
+    public void SaveUserData(UserData updateUser)
+    {
+        // 기존 데이터 로드
+        string path = Application.persistentDataPath + "/UserData.txt";
+        if (!File.Exists(path)) return;
+
+        string loadData = File.ReadAllText(path);
+        UserDataList userDataList = JsonUtility.FromJson<UserDataList>(loadData);
+
+        // 접속한 유저 데이터만 저장
+        for (int i = 0; i < userDataList.users.Count; i++)
+        {
+            if (userDataList.users[i].UserId == updateUser.UserId)
+            {
+                userDataList.users[i] = updateUser;
+                break;
+            }
+        }
+
+        string saveData = JsonUtility.ToJson(userDataList, true);
+        File.WriteAllText(path, saveData);
+
+        Debug.Log("현재 로그인한 유저 데이터 저장 완료!");
     }
 
     public void LoadUserData()
@@ -53,14 +82,12 @@ public class GameManager : MonoBehaviour
         if (File.Exists(Application.persistentDataPath + "/UserData.txt"))
         {
             string loadData = File.ReadAllText(Application.persistentDataPath + "/UserData.txt");
-            userData = JsonUtility.FromJson<UserData>(loadData);
-            Debug.Log(loadData);
+            UserDataList userDataList = JsonUtility.FromJson<UserDataList>(loadData);
+            userS = userDataList.users;
         }
         else
         {
-            GameManager.Instance.userData = new UserData("강기수", 100000, 50000);
-            GameManager.Instance.SaveUserData();
-            Debug.Log(GameManager.Instance.userData.UserCash);
+            Debug.Log("아이디가 없습니다.");
         }
     }
 }

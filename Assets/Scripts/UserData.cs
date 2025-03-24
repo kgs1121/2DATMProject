@@ -7,17 +7,33 @@ using UnityEngine;
 [System.Serializable]
 public class UserData
 {
+    [SerializeField] private string useriD;
+    [SerializeField] private string userPs;
     [SerializeField] private string userName;
     [SerializeField] private int userCash;
     [SerializeField] private int userBalance;
 
-    public event Action onUserDataUpdate;
+    public event Action<UserData> onUserDataUpdate;
 
-    public UserData(string userName1, int userCash1, int userBalance1)
+    public UserData(string id, string ps, string userName1, int userCash1, int userBalance1)
     {
+        useriD = id;
+        userPs = ps;
         userName = userName1;
         userCash = userCash1;
         userBalance = userBalance1;
+    }
+
+    public string UserId
+    {
+        get => useriD;
+        set => useriD = value;
+    }
+
+    public string UserPs
+    {
+        get => userPs;
+        set => userPs = value;
     }
 
     public string UserName
@@ -28,7 +44,7 @@ public class UserData
             if(userName != value)
             {
                 userName = value;
-                onUserDataUpdate?.Invoke();
+                onUserDataUpdate?.Invoke(this);
             }
         }
     }
@@ -41,7 +57,7 @@ public class UserData
             if (userCash != value)
             {
                 userCash = value;
-                onUserDataUpdate?.Invoke();
+                onUserDataUpdate?.Invoke(this);
             }
         }
     }
@@ -54,8 +70,19 @@ public class UserData
             if (userBalance != value)
             {
                 userBalance = value;
-                onUserDataUpdate?.Invoke();
+                onUserDataUpdate?.Invoke(this);
             }
         }
+    }
+}
+
+[System.Serializable]
+public class UserDataList
+{
+    public List<UserData> users;
+
+    public UserDataList(List<UserData> users)
+    {
+        this.users = users;
     }
 }
